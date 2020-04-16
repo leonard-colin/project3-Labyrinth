@@ -1,5 +1,8 @@
 class CLI:
-    """Class that defines CLI init"""
+    """Class that defines CLI initialization, characterized by:
+    - the display of the labyrinth
+    - getting a direction in the labyrinth
+    - win and lose messages to end the game"""
 
     DIRECTIONS = {'Z': 'UP',
                   'Q': 'LEFT',
@@ -20,12 +23,14 @@ class CLI:
             # r = '\n'.join(r)
 
     def win(self):
-        """Function that returns a 'win' message"""
-        return "Congratulation, you win!"
+        """Function that prints a 'win' message"""
+
+        print("Congratulation, you win!")
 
     def lose(self):
-        """Function that returns a 'lose' message"""
-        return "Sorry but you died!"
+        """Function that prints a 'lose' message"""
+
+        print("Sorry, but you died!")
 
     def get_direction(self):
         """Function that set a direction in labyrinth"""

@@ -1,13 +1,14 @@
 from labyrinth import Labyrinth
 from character import Character
 import constants
-import cli
+import argparse
 import pygame_
-import time
+import cli
 
 
 class Main:
-    """Class that initializes labyrinth defines game logic"""
+    """Class that initializes labyrinth and defines game logic
+    with its game loop"""
 
     def __init__(self):
         """Class constructor"""
@@ -19,13 +20,19 @@ class Main:
         self.lab.set_character_position(guardian)
         self.lab.set_tool_positions(constants.TOOLS)
 
-        view = pygame_.Pygame(*self.lab.get_size())
-        # view = CLI()
+        parser = argparse.ArgumentParser()
+        parser.add_argument('--cli', help="run game in terminal",
+                            action="store_true")
+        args = parser.parse_args()
+
+        if args.cli:
+            view = cli.CLI(*self.lab.get_size())
+        else:
+            view = pygame_.Pygame(*self.lab.get_size())
 
         view.display_lab(self.lab.lablist)
 
         game_loop = True
-
         while game_loop:
             direction = view.get_direction()
 
@@ -43,11 +50,11 @@ class Main:
                 elif move['event'] == 'WIN':
                     view.win()
                     game_loop = False
-                    break
+                    exit()
                 elif move['event'] == 'LOSE':
                     view.lose()
                     game_loop = False
-                    break
+                    exit()
 
 
 if __name__ == '__main__':

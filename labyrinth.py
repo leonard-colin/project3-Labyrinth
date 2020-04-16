@@ -3,9 +3,10 @@ from constants import TOOLS
 
 
 class Labyrinth:
-    """Class that defines a labyrinth, characterised by:
+    """Class that defines a labyrinth, characterized by:
+    - its size
     - Mac Gyver, Guardian and tools positions
-    - movements of Mac Gyver
+    - Mac Gyver's movements
     - logic to win or to lose"""
 
     def __init__(self, path):
@@ -20,8 +21,15 @@ class Labyrinth:
                 result = list(result)
                 self.lablist.append(result)
 
+    def get_size(self):
+        """Function that returns labyrinth's size
+        in a tuple (number of lines, number of columns)"""
+
+        return len(self.lablist[0]), len(self.lablist)
+
     def get_random_position(self):
-        """Function that gets a random empty cell from a row in column index in labyrinth"""
+        """Function that gets a random empty cell
+        from a row in column index in labyrinth"""
 
         possible_positions = []
         for x, line in enumerate(self.lablist):
@@ -41,10 +49,6 @@ class Labyrinth:
         """Function that returns the number of lines contained in labyrinth"""
 
         return len(self.lablist)
-
-    def get_size(self):
-        """Function that returns labyrinth's size in a tuple (number of lines, number of columns)"""
-        return len(self.lablist[0]), len(self.lablist)
 
     def set_tool_positions(self, tools):
         """Function that sets tools random positions"""
