@@ -13,11 +13,6 @@ class Pygame:
                   pygame.K_LEFT: 'LEFT',
                   pygame.K_RIGHT: 'RIGHT'}
 
-    def _resource_path(self, file):
-        """Function to access resources"""
-
-        return os.path.join('resource', file)
-
     def __init__(self, lines, columns):
         """Function to initialize labyrinth in Pygame"""
 
@@ -40,8 +35,13 @@ class Pygame:
                                        ).convert_alpha()
         self.macgyver = pygame.image.load(self._resource_path('MacGyver.png')
                                           ).convert_alpha()
-        self.guardian = pygame.image.load(self._resource_path('Gardien.png')
-                                          ).convert_alpha()
+        self.guardian = pygame.image.load(self._resource_path('Gardien.png'))\
+            .convert_alpha()
+
+    def _resource_path(self, file):
+        """Function to access resources"""
+
+        return os.path.join(os.path.dirname(os.path.abspath(__file__)), '../resource', file)
 
     def display_lab(self, lab):
         """Function that displays labyrinth and its characters and tools"""

@@ -1,9 +1,9 @@
-from labyrinth import Labyrinth
-from character import Character
+from model.labyrinth import Labyrinth
+from model.character import Character
 import constants
 import argparse
-import pygame_
-import cli
+from view.pygame import Pygame
+from view.cli import CLI
 
 
 class Main:
@@ -13,22 +13,14 @@ class Main:
     def __init__(self):
         """Class constructor"""
 
-        self.lab = Labyrinth('map.txt')
+        self.lab = Labyrinth('resource/map.txt')
         macgyver = Character('M', 1, 3)
         guardian = Character('G', 13, 13)
         self.lab.set_character_position(macgyver)
         self.lab.set_character_position(guardian)
         self.lab.set_tool_positions(constants.TOOLS)
 
-        parser = argparse.ArgumentParser()
-        parser.add_argument('--cli', help="run game in terminal",
-                            action="store_true")
-        args = parser.parse_args()
-
-        if args.cli:
-            view = cli.CLI(*self.lab.get_size())
-        else:
-            view = pygame_.Pygame(*self.lab.get_size())
+        view = self.initialize_view()
 
         view.display_lab(self.lab.lablist)
 
@@ -55,6 +47,17 @@ class Main:
                     view.lose()
                     game_loop = False
                     exit()
+
+    def initialize_view(self):
+        parser = argparse.ArgumentParser()
+        parser.add_argument('--cli', help="run game in terminal",
+                            action="store_true")
+        args = parser.parse_args()
+        if args.cli:
+            view = CLI(*self.lab.get_size())
+        else:
+            view = Pygame(*self.lab.get_size())
+        return view
 
 
 if __name__ == '__main__':
