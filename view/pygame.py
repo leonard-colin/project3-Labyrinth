@@ -23,47 +23,56 @@ class Pygame:
         self.quit_text = self.cambria_font.render("Press any key to quit",
                                                   True, (255, 255, 255))
 
-        self.floor = pygame.image.load(self._resource_path('floor.png')
-                                       ).convert_alpha()
-        self.wall = pygame.image.load(self._resource_path('wall.png')
-                                      ).convert_alpha()
-        self.needle = pygame.image.load(self._resource_path('needle.png')
-                                        ).convert_alpha()
-        self.tube = pygame.image.load(self._resource_path('tube.png')
-                                      ).convert_alpha()
-        self.ether = pygame.image.load(self._resource_path('ether.png')
-                                       ).convert_alpha()
-        self.macgyver = pygame.image.load(self._resource_path('MacGyver.png')
-                                          ).convert_alpha()
+        self.floor = pygame.image.load(self._resource_path('floor.png'))\
+            .convert_alpha()
+        self.wall = pygame.image.load(self._resource_path('wall.png'))\
+            .convert_alpha()
+        self.needle = pygame.image.load(self._resource_path('needle.png'))\
+            .convert_alpha()
+        self.tube = pygame.image.load(self._resource_path('tube.png'))\
+            .convert_alpha()
+        self.ether = pygame.image.load(self._resource_path('ether.png'))\
+            .convert_alpha()
+        self.macgyver = pygame.image.load(self._resource_path('MacGyver.png'))\
+            .convert_alpha()
         self.guardian = pygame.image.load(self._resource_path('Gardien.png'))\
             .convert_alpha()
 
     def _resource_path(self, file):
         """Function to access resources"""
 
-        return os.path.join(os.path.dirname(os.path.abspath(__file__)), '../resource', file)
+        return os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                            '../resource', file)
 
     def display_lab(self, lab):
         """Function that displays labyrinth and its characters and tools"""
 
-        self.screen_surface.blit(self.macgyver, (3 * 20, 1 * 20))
-        self.screen_surface.blit(self.guardian, (13 * 20, 13 * 20))
-
+        square_size = 20
         for x, line in enumerate(lab):
             for y, element in enumerate(line):
                 if element == '#':  # If element is a wall
-                    self.screen_surface.blit(self.wall, (y * 20, x * 20))
+                    self.screen_surface.blit(self.wall, (y * square_size,
+                                                         x * square_size))
                 elif element == ' ':  # If element is a free path
-                    self.screen_surface.blit(self.floor, (y * 20, x * 20))
+                    self.screen_surface.blit(self.floor, (y * square_size,
+                                                          x * square_size))
                 elif element == 'M':  # If element is Mac Gyver
-                    self.screen_surface.blit(self.floor, (y * 20, x * 20))
-                    self.screen_surface.blit(self.macgyver, (y * 20, x * 20))
+                    self.screen_surface.blit(self.floor, (y * square_size,
+                                                          x * square_size))
+                    self.screen_surface.blit(self.macgyver, (y * square_size,
+                                                             x * square_size))
+                elif element == 'G':  # If element is Guardian
+                    self.screen_surface.blit(self.guardian, (y * square_size,
+                                                             x * square_size))
                 elif element == 'N':  # If element is needle tool
-                    self.screen_surface.blit(self.needle, (y * 20, x * 20))
+                    self.screen_surface.blit(self.needle, (y * square_size,
+                                                           x * square_size))
                 elif element == 'T':  # If element is tube tool
-                    self.screen_surface.blit(self.tube, (y * 20, x * 20))
+                    self.screen_surface.blit(self.tube, (y * square_size,
+                                                         x * square_size))
                 elif element == 'E':  # If element is ether tool
-                    self.screen_surface.blit(self.ether, (y * 20, x * 20))
+                    self.screen_surface.blit(self.ether, (y * square_size,
+                                                          x * square_size))
 
         pygame.display.flip()
 

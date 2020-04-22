@@ -35,7 +35,8 @@ class CLI:
     def get_direction(self):
         """Function that set a direction in labyrinth"""
 
-        direction = input("Select direction 'Z, Q, S or D' : ").upper()
+        direction = input("Select direction 'Z, Q, S, D' "
+                          "or press 'X' to quit : ").upper()
         if direction == "X":
             return None
         elif direction in ['Z', 'Q', 'S', 'D']:
