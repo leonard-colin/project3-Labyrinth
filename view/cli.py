@@ -1,3 +1,6 @@
+from typing import List, Union
+
+
 class CLI:
     """Class that defines CLI initialization, characterized by:
     - the display of the labyrinth
@@ -9,10 +12,10 @@ class CLI:
                   'S': 'DOWN',
                   'D': 'RIGHT'}
 
-    def __init__(self, lines, columns):
+    def __init__(self, lines: int, columns: int):
         pass
 
-    def display_lab(self, lab):
+    def display_lab(self, lab: List[List[str]]):
         """Function that displays labyrinth"""
 
         for i in lab:
@@ -32,7 +35,7 @@ class CLI:
 
         print("Sorry, but you died!")
 
-    def get_direction(self):
+    def get_direction(self) -> Union[None, List[str]]:
         """Function that set a direction in labyrinth"""
 
         direction = input("Select direction 'Z, Q, S, D' "

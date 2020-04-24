@@ -1,4 +1,6 @@
 import random as r
+from typing import Tuple
+
 from constants import TOOLS
 
 
@@ -9,7 +11,7 @@ class Labyrinth:
     - Mac Gyver's movements
     - logic to win or to lose"""
 
-    def __init__(self, path):
+    def __init__(self, path: str):
         """Function that initializes a labyrinth"""
 
         self.lablist = []
@@ -21,13 +23,13 @@ class Labyrinth:
                 result = list(result)
                 self.lablist.append(result)
 
-    def get_size(self):
+    def get_size(self) -> Tuple[int, int]:
         """Function that returns labyrinth's size
         in a tuple (number of lines, number of columns)"""
 
         return len(self.lablist[0]), len(self.lablist)
 
-    def get_random_position(self):
+    def get_random_position(self) -> Tuple[int, int]:
         """Function that gets a random empty cell
         from a row in column index in labyrinth"""
 
@@ -57,7 +59,7 @@ class Labyrinth:
             x, y = self.get_random_position()
             self.lablist[x][y] = tool
 
-    def get_new_position(self, macgyver, direction):
+    def get_new_position(self, macgyver, direction) -> Tuple[int, int]:
         """Function that gets Mac Gyver's next position"""
 
         position = macgyver.position
@@ -84,19 +86,19 @@ class Labyrinth:
             self.lablist[new_y][new_x] = macgyver.name
             self.lablist[y][x] = ' '
             macgyver.position = (new_y, new_x)
-            return {'event': 'CONTINUE'}
+            return 'CONTINUE'
         elif element == '#' or (y, x) == (new_y, new_x):
             print("Mac Gyver cannot go through walls!".upper())
-            return {'event': 'NO_MOVE'}
+            return 'NO_MOVE'
         elif element in TOOLS:
             tool = self.lablist[new_y][new_x]
             macgyver.add_tool(tool)
             macgyver.position = (new_y, new_x)
             self.lablist[new_y][new_x] = macgyver.name
             self.lablist[y][x] = ' '
-            return {'event': 'ADD_TOOL'}
+            return 'ADD_TOOL'
         elif element == guardian.name:
             if len(macgyver.tools) == len(TOOLS):
-                return {'event': 'WIN'}
+                return 'WIN'
             else:
-                return {'event': 'LOSE'}
+                return 'LOSE'

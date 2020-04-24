@@ -1,3 +1,5 @@
+from typing import Union
+
 from model.labyrinth import Labyrinth
 from model.character import Character
 import constants
@@ -35,20 +37,20 @@ class Main:
                 move = self.lab.move_macgyver(macgyver,
                                               guardian,
                                               d)
-                if move['event'] in ['CONTINUE', 'ADD_TOOL']:
+                if move in ['CONTINUE', 'ADD_TOOL']:
                     view.display_lab(self.lab.lablist)
-                elif move['event'] == 'NO_MOVE':
+                elif move == 'NO_MOVE':
                     continue
-                elif move['event'] == 'WIN':
+                elif move == 'WIN':
                     view.win()
                     game_loop = False
                     exit()
-                elif move['event'] == 'LOSE':
+                elif move == 'LOSE':
                     view.lose()
                     game_loop = False
                     exit()
 
-    def initialize_view(self):
+    def initialize_view(self) -> Union[CLI, Pygame]:
         parser = argparse.ArgumentParser()
         parser.add_argument('--cli', help="run game in terminal",
                             action="store_true")
